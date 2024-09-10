@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Lead Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input,
+        button {
+            margin: 5px 0;
+            padding: 5px;
+        }
+
+        #results {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Instagram Lead Generator</h1>
+    <form action="/" method="post">
+        <input type="text" name="location" placeholder="Enter location" required>
+        <input type="text" name="niche" placeholder="Enter niche" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="results">
+        {% if results %}
+        {% if results[0].error %}
+        <p class="error">{{ results[0].error }}</p>
+        {% else %}
+        <h2>Results:</h2>
+        {% for account in results %}
+        <div>
+            <h3>{{ loop.index }}. {{ account.title }}</h3>
+            <p>URL: <a href="{{ account.url }}" target="_blank">{{ account.url }}</a></p>
+            <p>Info: {{ account.snippet }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% else %}
+        <p>No results found. Please try a different search.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>
